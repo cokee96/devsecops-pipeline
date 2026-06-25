@@ -110,7 +110,7 @@ jobs:
   sign:
     name: Sign Image (Cosign keyless)
     runs-on: ubuntu-latest
-    needs: scan-image
+    needs: [build, scan-image]
     permissions:
       contents: read
       packages: write
