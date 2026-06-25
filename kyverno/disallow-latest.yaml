@@ -1,0 +1,29 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disallow-latest-tag
+  annotations:
+    policies.kyverno.io/title: Disallow Latest Tag
+    policies.kyverno.io/category: Best Practices
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/description: >
+      Rejects Pods that use the :latest image tag. Immutable tags (e.g. git SHA)
+      are required for reproducible deployments and audit trails.
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: check-image-tag
+      match:
+        any:
+          - resources:
+              kinds: [Pod]
+              namespaces:
+                - demo
+                - default
+      validate:
+        message: "Image tag ':latest' is not allowed. Use an immutable tag (e.g. git SHA)."
+        pattern:
+          spec:
+            containers:
+              - image: "!*:latest"

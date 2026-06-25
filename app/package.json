@@ -1,0 +1,14 @@
+{
+  "name": "devsecops-demo",
+  "version": "1.0.0",
+  "description": "Demo app for DevSecOps pipeline showcase",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node -e \"const http=require('http'); const req=http.get('http://localhost:8080/healthz',(r)=>{let b='';r.on('data',d=>b+=d);r.on('end',()=>{const j=JSON.parse(b);if(j.status!=='ok')process.exit(1);console.log('health check passed');process.exit(0)})});req.on('error',e=>{console.error(e.message);process.exit(1)});\""
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,6 @@
+node_modules/
+*.sarif
+*.json
+!package.json
+.env
+.env.*

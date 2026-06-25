@@ -1,0 +1,12 @@
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Global allowlist"
+regexes = [
+  # Ignore example/placeholder values in docs
+  '''(example|placeholder|dummy|your[-_]?key)''',
+]
+paths = [
+  '''.gitleaks.toml''',
+]
