@@ -1,14 +1,7 @@
-# Build stage
-FROM node:22-alpine AS build
-WORKDIR /app
-COPY package.json .
-RUN npm install --omit=dev
-
-# Runtime stage — non-root, minimal surface
+# Runtime stage — non-root, minimal surface (zero npm dependencies)
 FROM node:22-alpine AS runtime
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 WORKDIR /app
-COPY --from=build /app/node_modules ./node_modules
 COPY server.js .
 COPY package.json .
 USER appuser
